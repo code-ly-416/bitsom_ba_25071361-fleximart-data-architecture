@@ -10,6 +10,9 @@
 End-to-end data pipeline for FlexiMart: cleaned CSV source data, loaded it into PostgreSQL, analyzed with SQL, modeled a MongoDB product catalog for flexible attributes, and built a star-schema warehouse for historical sales analytics.
 
 ## Repository Structure
+
+```
+fleximart-data-architecture/
 ├── data/
 │   ├── customers_raw.csv
 │   ├── products_raw.csv
@@ -33,6 +36,7 @@ End-to-end data pipeline for FlexiMart: cleaned CSV source data, loaded it into 
 │   ├── warehouse_schema.sql
 │   └── README.md
 └── README.md
+```
 
 ## Technologies Used
 
