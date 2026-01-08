@@ -1,0 +1,25 @@
+
+================================
+DATA QUALITY REPORT
+Generated: 2026-01-08 21:52:50.750310
+================================
+
+1. CUSTOMERS FILE
+   - Records Processed:       26
+   - Duplicates (in raw):     1
+   - Missing Values Handled:  5
+   - Records Loaded to DB:    25
+
+2. PRODUCTS FILE
+   - Records Processed:       20
+   - Duplicates (in raw):     0
+   - Missing Values Handled:  4
+   - Records Loaded to DB:    20
+
+3. SALES FILE (Orders & Items)
+   - Records Processed:       41
+   - Duplicates (in raw):     1
+   - Missing Values Handled:  5
+   - Unique Orders Loaded:    38
+   - Line Items Loaded:       38
+

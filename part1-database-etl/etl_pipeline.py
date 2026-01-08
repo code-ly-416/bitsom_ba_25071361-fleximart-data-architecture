@@ -273,3 +273,42 @@ raw_sales.rename(columns={'total_amount': 'subtotal'}, inplace=True)
 print("Loading Order Items...")
 cols_order_item = ['order_item_id', 'order_id', 'product_id', 'quantity', 'unit_price', 'subtotal']
 raw_sales[cols_order_item].to_sql('order_items', engine, if_exists='append', index=False)
+
+# Reload original raw files temporarily just to calculate initial stats
+orig_cust = pd.read_csv('../data/customers_raw.csv')
+orig_prod = pd.read_csv('../data/products_raw.csv')
+orig_sales = pd.read_csv('../data/sales_raw.csv')
+
+# Calculate Stats
+report = f"""
+================================
+DATA QUALITY REPORT
+Generated: {pd.Timestamp.now()}
+================================
+
+1. CUSTOMERS FILE
+   - Records Processed:       {len(orig_cust)}
+   - Duplicates (in raw):     {len(orig_cust) - len(orig_cust.drop_duplicates())}
+   - Missing Values Handled:  {orig_cust.isna().sum().sum()}
+   - Records Loaded to DB:    {len(raw_customers)}
+
+2. PRODUCTS FILE
+   - Records Processed:       {len(orig_prod)}
+   - Duplicates (in raw):     {len(orig_prod) - len(orig_prod.drop_duplicates())}
+   - Missing Values Handled:  {orig_prod.isna().sum().sum()}
+   - Records Loaded to DB:    {len(raw_products)}
+
+3. SALES FILE (Orders & Items)
+   - Records Processed:       {len(orig_sales)}
+   - Duplicates (in raw):     {len(orig_sales) - len(orig_sales.drop_duplicates())}
+   - Missing Values Handled:  {orig_sales.isna().sum().sum()}
+   - Unique Orders Loaded:    {len(raw_sales['order_id'].unique())}
+   - Line Items Loaded:       {len(raw_sales['order_item_id'].unique())}
+
+"""
+
+# Append to file if exists, Create if not ('a' mode handles both)
+with open('data_quality_report.txt', 'a') as f:
+    f.write(report)
+
+print("Report Appended: data_quality_report.txt")
